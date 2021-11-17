@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/css.css">
+</head>
+<body>
+<div class="container">
+    <div class="LBack-ground DBack-ground">
+    </div>
+    <div class="list-item">
+        <div class="title">
+            <div>
+                <h1>
+                    T O D O
+                </h1>
+            </div>
+            <div>
+                <img class="DChangeMod" onclick="DarkToLight()" src="../img/icon-sun.svg" alt="LMod">
+                <img class="LChangeMod" onclick="LightToDark()" src="../img/icon-moon.svg" alt="DMod">
+            </div>
+        </div>
+        <div class="creatList theme">
+            <div>
+                <div class="circle todo-button">
+                </div>
+            </div>
+            <div class="list">
+                <input class="theme todo-input" type="text" placeholder="Create a new todo ...">
+            </div>
+        </div>
+        <div class="todo-list theme">
+        </div>
+        <div class="box theme">
+            <p id="many" class="filter"></p>
+            <p class="filter" id="all">
+                All
+            </p>
+            <p class="filter" id="active">
+                Active
+            </p>
+            <p class="filter" id="completed">
+                Completed
+            </p>
+            <p class="filter" id="clear">
+                Clear Completed
+            </p>
+        </div>
+    </div>
+</div>
+<script src="../js/js.js"></script>
+</body>
+</html>
