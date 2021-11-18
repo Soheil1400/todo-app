@@ -27,7 +27,7 @@ const filterAll = document.getElementById('all')
 const filterActive = document.getElementById('active')
 const filterCompleted = document.getElementById('completed')
 const reset = document.getElementById('clear')
-let todos
+let todos = []
 
 
 document.addEventListener("DOMContentLoaded", getTodos)
@@ -49,14 +49,14 @@ function addTodo(event) {
     const todoDiv = document.createElement("div")
     todoDiv.classList.add("box1")
     todoDiv.classList.add("theme")
-    //sideDiv
+    // //sideDiv
     const sideDiv1 = document.createElement("div")
     const sideDiv2 = document.createElement("div")
     sideDiv2.classList.add("list")
     sideDiv2.classList.add("theme")
     todoDiv.appendChild(sideDiv1)
     todoDiv.appendChild(sideDiv2)
-    //checkBox
+    // //checkBox
     const checkBox = document.createElement("div")
     checkBox.addEventListener('click', chickOut)
     checkBox.classList.add("circle")
@@ -65,13 +65,13 @@ function addTodo(event) {
     imgBox.src = "../img/icon-check.svg"
     imgBox.classList.add("check")
     checkBox.appendChild(imgBox)
-    //create name
+    // //create name
     const newTodo = document.createElement("p")
     newTodo.innerText = todoInput.value
     newTodo.classList.add("theme")
     newTodo.classList.add("paragraph")
     sideDiv2.appendChild(newTodo)
-    //trashTodo
+    // //trashTodo
     const trash = document.createElement("img")
     trash.addEventListener('click', deleteCheck)
     trash.src = "../img/icon-cross.svg"
@@ -173,6 +173,7 @@ function removeLocal(todo, index) {
     const text = todo.lastChild
     const todoIndex = text.children[0].innerHTML
     todos.splice(todos.indexOf(todoIndex), 1)
+    console.log(todos)
     localStorage.setItem('todos', JSON.stringify(todos))
 }
 
