@@ -1,3 +1,14 @@
+//element
+const todoBoxes = document.getElementsByClassName("todo-list")[0]
+const todoInput = document.getElementsByClassName("todo-input")[0]
+const filterAll = document.getElementById('all')
+const filterActive = document.getElementById('active')
+const filterCompleted = document.getElementById('completed')
+const reset = document.getElementById("reset")
+const pTag = document.getElementById("many")
+let todos = []
+let mods = []
+
 // ** DarkMod **//
 function LightToDark() {
     document.documentElement.style.setProperty('--box-color', '#25273D');
@@ -7,6 +18,8 @@ function LightToDark() {
     document.querySelector(".LBack-ground").style.backgroundImage = "url(\"../img/bg-desktop-dark.jpg\")"
     document.querySelector(".DChangeMod").style.display = "flex"
     document.querySelector(".LChangeMod").style.display = "none"
+    return (mods = [true],
+        saveMod())
 }
 
 function DarkToLight() {
@@ -17,22 +30,14 @@ function DarkToLight() {
     document.querySelector(".LBack-ground").style.backgroundImage = "url(\"../img/bg-desktop-light.jpg\")"
     document.querySelector(".DChangeMod").style.display = "none"
     document.querySelector(".LChangeMod").style.display = "flex"
+    return (mods = [false],
+        saveMod())
 }
 
 //** App **//
 
-//element
-const todoBoxes = document.getElementsByClassName("todo-list")[0]
-const todoInput = document.getElementsByClassName("todo-input")[0]
-const filterAll = document.getElementById('all')
-const filterActive = document.getElementById('active')
-const filterCompleted = document.getElementById('completed')
-const reset = document.getElementById("reset")
-const pTag = document.getElementById("many")
-let todos = []
-
 //event
-reset.addEventListener("click",clear)
+reset.addEventListener("click", clear)
 todoInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
         handleInput(event)
@@ -88,16 +93,16 @@ function checked(element) {
     }
 }
 
-function checkStyle(obj){
-    for (let item of obj){
+function checkStyle(obj) {
+    for (let item of obj) {
         const check = document.getElementsByClassName('check')[obj.indexOf(item)]
         const text = document.getElementsByClassName('paragraph')[obj.indexOf(item)]
-        const color = document.getElementsByClassName('circle')[obj.indexOf(item)+1]
-        if (item.state === true){
+        const color = document.getElementsByClassName('circle')[obj.indexOf(item) + 1]
+        if (item.state === true) {
             check.classList.add('Check')
             color.classList.add('circleCheck')
             text.classList.add('paragraphCheck')
-        }else{
+        } else {
             check.classList.remove('Check')
             color.classList.remove('circleCheck')
             text.classList.remove('paragraphCheck')
@@ -105,7 +110,7 @@ function checkStyle(obj){
     }
 }
 
-function HowManyItems(){
+function HowManyItems() {
     let number = 0
     for (let item of todos) {
         if (item.state === false) {
@@ -115,7 +120,7 @@ function HowManyItems(){
     pTag.innerText = `${number} item(s) left`
 }
 
-function allFilter(){
+function allFilter() {
     todoBoxes.innerHTML = generateList(todos)
     checkStyle(todos)
     filterAll.style.color = "#3a7cfd"
@@ -123,7 +128,7 @@ function allFilter(){
     filterCompleted.style.color = "#9495a5"
 }
 
-function activeFilter(){
+function activeFilter() {
     let active = []
     for (let item of todos) {
         if (item.state === false) {
@@ -137,7 +142,7 @@ function activeFilter(){
     filterCompleted.style.color = "#9495a5"
 }
 
-function completedFilter(){
+function completedFilter() {
     let completed = []
     for (let item of todos) {
         if (item.state === true) {
@@ -151,10 +156,10 @@ function completedFilter(){
     filterCompleted.style.color = "#3a7cfd"
 }
 
-function clear(){
+function clear() {
     console.log("hi")
     todos = JSON.parse(localStorage.getItem("todos"))
-    todos.splice(0,todos.length)
+    todos.splice(0, todos.length)
     localStorage.setItem('todos', JSON.stringify(todos))
     todoBoxes.innerHTML = generateList(todos)
     HowManyItems(todos)
@@ -169,6 +174,7 @@ function saveLocal() {
 
 function refresh() {
     todos = JSON.parse(localStorage.getItem("todos"))
+    mods = JSON.parse(localStorage.getItem("mods"))
     todoBoxes.innerHTML = generateList(todos)
     HowManyItems()
     allFilter()
@@ -183,10 +189,27 @@ function remove(element) {
         }
     }
     localStorage.setItem('todos', JSON.stringify(todos))
+    mods = JSON.parse(localStorage.getItem("mods"))
     todoBoxes.innerHTML = generateList(todos)
     HowManyItems()
     allFilter()
     checkStyle(todos)
 }
 
+function saveMod() {
+    localStorage.setItem('mods', JSON.stringify(mods))
+}
+
+function refreshMod() {
+    mods = JSON.parse(localStorage.getItem("mods"))
+    console.log(mods)
+    if (mods[0] === true) {
+        LightToDark()
+    }else {
+        DarkToLight()
+    }
+}
+
 refresh()
+refreshMod()
+
