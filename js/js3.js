@@ -219,6 +219,11 @@ function fixSection(){
         return completedFilter()
     }
 }
+//dragAndDrop
+new Sortable(todoBoxes,{
+    animation:350,
+    dragClass: 'sortable-drag'
+});
 //fixFunction
 refresh()
 refreshMod()
