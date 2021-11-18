@@ -9,7 +9,6 @@ const reset = document.getElementById("reset")
 const pTag = document.getElementById("many")
 let todos = []
 let mods = []
-
 // ** DarkMod **//
 function LightToDark() {
     document.documentElement.style.setProperty('--box-color', '#25273D');
@@ -22,7 +21,6 @@ function LightToDark() {
     return (mods = [true],
         saveMod())
 }
-
 function DarkToLight() {
     document.documentElement.style.setProperty('--box-color', '#fff');
     document.documentElement.style.setProperty('--main-color', '#fff');
@@ -34,9 +32,7 @@ function DarkToLight() {
     return (mods = [false],
         saveMod())
 }
-
 //** App **//
-
 //event
 reset.addEventListener("click", clear)
 todoInput.addEventListener("keypress", (event) => {
@@ -45,9 +41,7 @@ todoInput.addEventListener("keypress", (event) => {
         todoInput.value = ""
     }
 })
-
-
-//buildToDo
+//BuildToDo
 function addTodo(obj) {
     return (`<div class="box1 theme">
                 <div>
@@ -62,7 +56,6 @@ function addTodo(obj) {
                 </div>
     `)
 }
-
 //generate
 const generateList = (arrInfo) => {
     return (arrInfo.map((item) => {
@@ -110,7 +103,7 @@ function checkStyle(obj) {
         }
     }
 }
-
+//How many items left
 function HowManyItems() {
     let number = 0
     for (let item of todos) {
@@ -120,7 +113,7 @@ function HowManyItems() {
     }
     pTag.innerText = `${number} item(s) left`
 }
-
+//filterAll
 function allFilter() {
     todoBoxes.innerHTML = generateList(todos)
     checkStyle(todos)
@@ -128,7 +121,7 @@ function allFilter() {
     filterActive.classList.remove('doneClass')
     filterCompleted.classList.remove('doneClass')
 }
-
+//filterActive
 function activeFilter() {
     for (let i = 0;todos.length > i; i++){
         todoDiv[i].style.display = 'flex'
@@ -143,7 +136,7 @@ function activeFilter() {
     filterActive.classList.add('doneClass')
     filterCompleted.classList.remove('doneClass')
 }
-
+//filterCompleted
 function completedFilter() {
     for (let i = 0;todos.length > i; i++){
         todoDiv[i].style.display = 'flex'
@@ -157,7 +150,7 @@ function completedFilter() {
     filterActive.classList.remove('doneClass')
     filterCompleted.classList.add('doneClass')
 }
-
+//clearCompleted
 function clear() {
     todos = JSON.parse(localStorage.getItem("todos"))
     let fixArr = []
@@ -172,15 +165,14 @@ function clear() {
     allFilter()
     HowManyItems(todos)
 }
-
+//saveLocal
 function saveLocal() {
     fixSection()
     localStorage.setItem('todos', JSON.stringify(todos))
-    // allFilter()
     HowManyItems()
     checkStyle(todos)
 }
-
+//refreshPage
 function refresh() {
     todos = JSON.parse(localStorage.getItem("todos"))
     mods = JSON.parse(localStorage.getItem("mods"))
@@ -189,7 +181,7 @@ function refresh() {
     allFilter()
     checkStyle(todos)
 }
-
+//deleteItem
 function remove(element) {
     todos = JSON.parse(localStorage.getItem("todos"))
     for (let item of todos) {
@@ -203,11 +195,11 @@ function remove(element) {
     HowManyItems()
     checkStyle(todos)
 }
-
+//saveMods
 function saveMod() {
     localStorage.setItem('mods', JSON.stringify(mods))
 }
-
+//refreshMods
 function refreshMod() {
     mods = JSON.parse(localStorage.getItem("mods"))
     console.log(mods)
@@ -217,7 +209,7 @@ function refreshMod() {
         DarkToLight()
     }
 }
-
+//fixChangeItemInFilter
 function fixSection(){
     if (filterAll.classList.contains('doneClass')){
         return allFilter()
@@ -227,7 +219,7 @@ function fixSection(){
         return completedFilter()
     }
 }
-
+//fixFunction
 refresh()
 refreshMod()
 fixSection()
