@@ -7,6 +7,7 @@ const filterActive = document.getElementById('active')
 const filterCompleted = document.getElementById('completed')
 const reset = document.getElementById("reset")
 const pTag = document.getElementById("many")
+const circleButton = document.getElementsByClassName('todo-button')[0]
 let todos = []
 let mods = []
 // ** DarkMod **//
@@ -37,9 +38,13 @@ function DarkToLight() {
 reset.addEventListener("click", clear)
 todoInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
-        handleInput(event)
+        handleInput(event.target.value)
         todoInput.value = ""
     }
+})
+circleButton.addEventListener('click',()=>{
+    handleInput(todoInput.value)
+    todoInput.value = ""
 })
 //BuildToDo
 function addTodo(obj) {
@@ -65,7 +70,7 @@ const generateList = (arrInfo) => {
 
 function handleInput(event) {
     let createObj = {name: "", state: false}
-    createObj.name = event.target.value;
+    createObj.name = event;
     return (
         todos.push(createObj),
             todoBoxes.innerHTML = generateList(todos),
@@ -111,7 +116,7 @@ function HowManyItems() {
             number++
         }
     }
-    pTag.innerText = `${number} item(s) left`
+    pTag.innerText = `${number} items left`
 }
 //filterAll
 function allFilter() {

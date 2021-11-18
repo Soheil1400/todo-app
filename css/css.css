@@ -126,12 +126,12 @@ html {
 
 .box1 .delete {
     cursor: pointer;
-    transform: scale(0);
-    transition: transform .5s ease-in-out;
+    opacity: 0;
+    transition: opacity .5s ease-in-out;
 }
 
 .box1:hover .delete {
-    transform: scale(1);
+    opacity: 1;
 }
 
 .box1:hover .circle {
@@ -159,6 +159,7 @@ html {
     font-size: 2rem;
     border-radius: 3px;
     border-bottom: 1px solid var(--border-color);
+    cursor: grab;
 }
 
 #many {
