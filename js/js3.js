@@ -1,5 +1,6 @@
 //element
 const todoBoxes = document.getElementsByClassName("todo-list")[0]
+const todoDiv = document.getElementsByClassName('box1')
 const todoInput = document.getElementsByClassName("todo-input")[0]
 const filterAll = document.getElementById('all')
 const filterActive = document.getElementById('active')
@@ -123,52 +124,60 @@ function HowManyItems() {
 function allFilter() {
     todoBoxes.innerHTML = generateList(todos)
     checkStyle(todos)
-    filterAll.style.color = "#3a7cfd"
-    filterActive.style.color = "#9495a5"
-    filterCompleted.style.color = "#9495a5"
+    filterAll.classList.add('doneClass')
+    filterActive.classList.remove('doneClass')
+    filterCompleted.classList.remove('doneClass')
 }
 
 function activeFilter() {
-    let active = []
+    for (let i = 0;todos.length > i; i++){
+        todoDiv[i].style.display = 'flex'
+    }
     for (let item of todos) {
-        if (item.state === false) {
-            active.push(item)
+        if (item.state === true) {
+            todoDiv[todos.indexOf(item)].style.display = 'none'
+
         }
     }
-    todoBoxes.innerHTML = generateList(active)
-    checkStyle(active)
-    filterAll.style.color = "#9495a5"
-    filterActive.style.color = "#3a7cfd"
-    filterCompleted.style.color = "#9495a5"
+    filterAll.classList.remove('doneClass')
+    filterActive.classList.add('doneClass')
+    filterCompleted.classList.remove('doneClass')
 }
 
 function completedFilter() {
-    let completed = []
+    for (let i = 0;todos.length > i; i++){
+        todoDiv[i].style.display = 'flex'
+    }
     for (let item of todos) {
-        if (item.state === true) {
-            completed.push(item)
+        if (item.state === false) {
+            todoDiv[todos.indexOf(item)].style.display = 'none'
         }
     }
-    todoBoxes.innerHTML = generateList(completed)
-    checkStyle(completed)
-    filterAll.style.color = "#9495a5"
-    filterActive.style.color = "#9495a5"
-    filterCompleted.style.color = "#3a7cfd"
+    filterAll.classList.remove('doneClass')
+    filterActive.classList.remove('doneClass')
+    filterCompleted.classList.add('doneClass')
 }
 
 function clear() {
-    console.log("hi")
     todos = JSON.parse(localStorage.getItem("todos"))
-    todos.splice(0, todos.length)
+    let fixArr = []
+    for (let item of todos){
+        if (item.state === false){
+            fixArr.push(item)
+        }
+    }
+    todos = fixArr
     localStorage.setItem('todos', JSON.stringify(todos))
     todoBoxes.innerHTML = generateList(todos)
+    allFilter()
     HowManyItems(todos)
 }
 
 function saveLocal() {
+    fixSection()
     localStorage.setItem('todos', JSON.stringify(todos))
+    // allFilter()
     HowManyItems()
-    allFilter()
     checkStyle(todos)
 }
 
@@ -192,7 +201,6 @@ function remove(element) {
     mods = JSON.parse(localStorage.getItem("mods"))
     todoBoxes.innerHTML = generateList(todos)
     HowManyItems()
-    allFilter()
     checkStyle(todos)
 }
 
@@ -210,6 +218,17 @@ function refreshMod() {
     }
 }
 
+function fixSection(){
+    if (filterAll.classList.contains('doneClass')){
+        return allFilter()
+    }if (filterActive.classList.contains('doneClass')) {
+        return activeFilter()
+    }if (filterCompleted.classList.contains('doneClass')){
+        return completedFilter()
+    }
+}
+
 refresh()
 refreshMod()
+fixSection()
 
