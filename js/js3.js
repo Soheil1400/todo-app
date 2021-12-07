@@ -7,6 +7,8 @@ const filterActive = document.getElementById('active')
 const filterCompleted = document.getElementById('completed')
 const reset = document.getElementById("reset")
 const pTag = document.getElementById("many")
+const resetM = document.getElementById("resetM")
+const pTagM = document.getElementById("manyM")
 const circleButton = document.getElementsByClassName('todo-button')[0]
 let todos = []
 let mods = []
@@ -16,6 +18,7 @@ function LightToDark() {
     document.documentElement.style.setProperty('--main-color', '#171823');
     document.documentElement.style.setProperty('--text-color', '#fff');
     document.documentElement.style.setProperty('--border-color', '#393A4B');
+    document.documentElement.style.setProperty('--state-color', '#fff');
     document.querySelector(".LBack-ground").style.backgroundImage = "url(\"../img/bg-desktop-dark.jpg\")"
     document.querySelector(".DChangeMod").style.display = "flex"
     document.querySelector(".LChangeMod").style.display = "none"
@@ -27,6 +30,7 @@ function DarkToLight() {
     document.documentElement.style.setProperty('--main-color', '#fff');
     document.documentElement.style.setProperty('--text-color', '#494C6B');
     document.documentElement.style.setProperty('--border-color', '#e3e4f1');
+    document.documentElement.style.setProperty('--state-color', '#000');
     document.querySelector(".LBack-ground").style.backgroundImage = "url(\"../img/bg-desktop-light.jpg\")"
     document.querySelector(".DChangeMod").style.display = "none"
     document.querySelector(".LChangeMod").style.display = "flex"
@@ -36,6 +40,7 @@ function DarkToLight() {
 //** App **//
 //event
 reset.addEventListener("click", clear)
+resetM.addEventListener("click", clear)
 todoInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
         handleInput(event.target.value)
@@ -117,6 +122,7 @@ function HowManyItems() {
         }
     }
     pTag.innerText = `${number} items left`
+    pTagM.innerText = `${number} items left`
 }
 //filterAll
 function allFilter() {

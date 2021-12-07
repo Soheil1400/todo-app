@@ -5,6 +5,7 @@
     --box-color: #fff;
     --text-color: #494C6B;
     --border-color: #e3e4f1;
+    --state-color:#000;
 }
 
 html {
@@ -95,6 +96,7 @@ html {
     background: linear-gradient(to right, #55DDFF, #C058F3);
 }
 
+
 .check {
     position: absolute;
     display: none;
@@ -173,6 +175,9 @@ html {
     cursor: pointer;
 }
 
+.filter:hover{
+    color: var(--state-color);
+}
 
 .todo-list {
     width: 100%;
@@ -191,6 +196,10 @@ html {
 }
 .sortable-drag{
     opacity: 0;
+}
+
+.mobile{
+    display: none;
 }
 @media only screen and (max-width: 600px) {
     .LBack-ground {
@@ -217,10 +226,27 @@ html {
         font-size: 1rem;
         margin-right: 1.3rem;
     }
+    .filter:hover{
+        color:#3a7cfd;
+    }
     #many{
         margin-right: 2rem;
+        display: none;
+    }
+    #reset{
+        display: none;
     }
     .box{
         margin-top: 2rem;
+    }
+    .mobile{
+        display: flex;
+        justify-content: space-between;
+        margin: 0;
+    }
+    .mobileState{
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
